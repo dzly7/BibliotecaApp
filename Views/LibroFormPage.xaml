@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BibliotecaApp.Views.LibroFormPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Registro de Libro">
+
+    <ScrollView>
+        <Border Margin="16" Padding="20" BackgroundColor="White"
+                StrokeThickness="0" StrokeShape="RoundRectangle 16"
+                VerticalOptions="Start" MaximumWidthRequest="640">
+
+            <Grid ColumnDefinitions="Auto,*"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                  ColumnSpacing="12"
+                  RowSpacing="14">
+
+                <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="EncabezadoLabel"
+                       Text="📚 Registrar nuevo libro"
+                       FontSize="22" FontAttributes="Bold" TextColor="#1E3A8A" />
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Título:"
+                       VerticalOptions="Center" FontAttributes="Bold" />
+                <Entry Grid.Row="1" Grid.Column="1" x:Name="TituloEntry"
+                       Placeholder="Nombre del libro" MaxLength="150" />
+
+                <Label Grid.Row="2" Grid.Column="0" Text="Autor:"
+                       VerticalOptions="Center" FontAttributes="Bold" />
+                <Entry Grid.Row="2" Grid.Column="1" x:Name="AutorEntry"
+                       Placeholder="Nombre del autor" MaxLength="120" />
+
+                <Label Grid.Row="3" Grid.Column="0" Text="Categoría:"
+                       VerticalOptions="Center" FontAttributes="Bold" />
+                <Picker Grid.Row="3" Grid.Column="1" x:Name="CategoriaPicker"
+                        Title="Selecciona una categoría" />
+
+                <Label Grid.Row="4" Grid.Column="0" Text="Color portada:"
+                       VerticalOptions="Center" FontAttributes="Bold" />
+                <Picker Grid.Row="4" Grid.Column="1" x:Name="ColorPicker"
+                        Title="Selecciona un color" />
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Estado:"
+                       VerticalOptions="Center" FontAttributes="Bold" />
+                <Label Grid.Row="5" Grid.Column="1" x:Name="EstadoLabel"
+                       Text="Disponible" TextColor="#16A34A" FontAttributes="Bold"
+                       VerticalOptions="Center" />
+
+                <Label Grid.Row="6" Grid.ColumnSpan="2" x:Name="MensajeLabel"
+                       TextColor="#DC2626" IsVisible="False" />
+
+                <Grid Grid.Row="7" Grid.ColumnSpan="2" ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Button Text="Cancelar"
+                            BackgroundColor="#E2E8F0" TextColor="#0F172A"
+                            CornerRadius="12" HeightRequest="48"
+                            Clicked="OnCancelarClicked" />
+                    <Button Grid.Column="1" Text="Guardar"
+                            BackgroundColor="#16A34A" TextColor="White"
+                            FontAttributes="Bold" CornerRadius="12" HeightRequest="48"
+                            Clicked="OnGuardarClicked" />
+                </Grid>
+            </Grid>
+        </Border>
+    </ScrollView>
+</ContentPage>

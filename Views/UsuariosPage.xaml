@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BibliotecaApp.Views.UsuariosPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:BibliotecaApp.Models"
+    Title="Usuarios">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="12" RowSpacing="12">
+
+        <Border Grid.Row="0" x:Name="FormularioBorder"
+                BackgroundColor="White" Padding="16"
+                StrokeThickness="0" StrokeShape="RoundRectangle 14">
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                  ColumnSpacing="12" RowSpacing="10">
+
+                <Label Grid.ColumnSpan="2" Text="👤 Nuevo usuario"
+                       FontSize="18" FontAttributes="Bold" TextColor="#1E3A8A" />
+
+                <Label Grid.Row="1" Text="Nombre:" FontAttributes="Bold" VerticalOptions="Center" />
+                <Entry Grid.Row="1" Grid.Column="1" x:Name="NombreEntry"
+                       Placeholder="Nombre completo" MaxLength="100" />
+
+                <Label Grid.Row="2" Text="Correo:" FontAttributes="Bold" VerticalOptions="Center" />
+                <Entry Grid.Row="2" Grid.Column="1" x:Name="CorreoEntry"
+                       Placeholder="correo@ejemplo.com" Keyboard="Email" MaxLength="120" />
+
+                <Label Grid.Row="3" Text="Contraseña:" FontAttributes="Bold" VerticalOptions="Center" />
+                <Entry Grid.Row="3" Grid.Column="1" x:Name="ContrasenaEntry"
+                       Placeholder="Mínimo 4 caracteres" IsPassword="True" />
+
+                <Label Grid.Row="4" Text="Rol:" FontAttributes="Bold" VerticalOptions="Center" />
+                <Picker Grid.Row="4" Grid.Column="1" x:Name="RolPicker" Title="Selecciona un rol" />
+
+                <Label Grid.Row="5" Grid.ColumnSpan="2" x:Name="MensajeLabel"
+                       TextColor="#DC2626" IsVisible="False" />
+
+                <Button Grid.Row="6" Grid.ColumnSpan="2" Text="Agregar usuario"
+                        BackgroundColor="#16A34A" TextColor="White" FontAttributes="Bold"
+                        CornerRadius="10" Clicked="OnAgregarClicked" />
+            </Grid>
+        </Border>
+
+        <Label Grid.Row="1" x:Name="TotalLabel" FontSize="13" TextColor="#64748B" />
+
+        <CollectionView Grid.Row="2" x:Name="UsuariosView" SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Usuario">
+                    <Border BackgroundColor="White" Padding="10"
+                            StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                        <Grid ColumnDefinitions="44,*,Auto,Auto" ColumnSpacing="10">
+                            <Border WidthRequest="44" HeightRequest="44"
+                                    BackgroundColor="{Binding RolColor}"
+                                    StrokeThickness="0" StrokeShape="RoundRectangle 22">
+                                <Label Text="{Binding Inicial}" TextColor="White"
+                                       FontSize="18" FontAttributes="Bold"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Nombre}" FontAttributes="Bold" FontSize="15" />
+                                <Label Text="{Binding Correo}" FontSize="12" TextColor="#475569" />
+                            </VerticalStackLayout>
+
+                            <Border Grid.Column="2" BackgroundColor="{Binding RolColor}"
+                                    Padding="10,4" StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10" VerticalOptions="Center">
+                                <Label Text="{Binding Rol}" TextColor="White" FontSize="11"
+                                       FontAttributes="Bold" />
+                            </Border>
+
+                            <Button Grid.Column="3" Text="🗑" BackgroundColor="Transparent"
+                                    TextColor="#DC2626" FontSize="18" WidthRequest="44"
+                                    Clicked="OnEliminarClicked" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

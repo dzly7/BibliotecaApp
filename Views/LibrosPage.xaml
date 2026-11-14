@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BibliotecaApp.Views.LibrosPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:BibliotecaApp.Models"
+    Title="Catálogo de Libros">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" Padding="12" RowSpacing="10">
+
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+            <Label x:Name="SaludoLabel" FontSize="16" FontAttributes="Bold"
+                   VerticalOptions="Center" />
+            <Label Grid.Column="1" x:Name="ResultadosLabel" FontSize="13"
+                   TextColor="#64748B" VerticalOptions="Center" />
+        </Grid>
+
+        <HorizontalStackLayout Grid.Row="1" Spacing="10" HorizontalOptions="Center">
+            <Button Text="➕ Nuevo"    BackgroundColor="#16A34A" TextColor="White"
+                    CornerRadius="10" Clicked="OnNuevoClicked" />
+            <Button Text="✏️ Editar"   BackgroundColor="#2563EB" TextColor="White"
+                    CornerRadius="10" Clicked="OnEditarClicked" />
+            <Button Text="🗑 Eliminar" BackgroundColor="#DC2626" TextColor="White"
+                    CornerRadius="10" Clicked="OnEliminarClicked" />
+        </HorizontalStackLayout>
+
+        <SearchBar Grid.Row="2" x:Name="BuscadorBar"
+                   Placeholder="Buscar por título o autor..."
+                   PlaceholderColor="#94A3B8"
+                   TextColor="#0F172A"
+                   BackgroundColor="White"
+                   TextChanged="OnBuscarTextChanged" />
+
+        <FlexLayout Grid.Row="3" x:Name="FiltrosLayout"
+                    Direction="Row" Wrap="Wrap"
+                    JustifyContent="Start" AlignItems="Center" />
+
+        <RefreshView Grid.Row="4" x:Name="Refresco" Refreshing="OnRefrescar">
+            <CollectionView x:Name="LibrosView" SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2"
+                                     HorizontalItemSpacing="10" VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.EmptyView>
+                    <Label Text="No se encontraron libros." HorizontalOptions="Center"
+                           Margin="0,40" TextColor="#64748B" />
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Libro">
+                        <Border BackgroundColor="White" Padding="10"
+                                StrokeShape="RoundRectangle 14">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="Stroke" Value="Transparent" />
+                                            <Setter Property="StrokeThickness" Value="0" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="Stroke" Value="#2563EB" />
+                                            <Setter Property="StrokeThickness" Value="3" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid RowDefinitions="110,Auto,Auto,Auto" RowSpacing="4">
+                                <AbsoluteLayout Grid.Row="0">
+                                    <Border AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                            AbsoluteLayout.LayoutFlags="All"
+                                            BackgroundColor="{Binding ColorPortada}"
+                                            StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                                        <Label Text="{Binding Iniciales}" TextColor="White"
+                                               FontSize="34" FontAttributes="Bold"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                    <Border AbsoluteLayout.LayoutBounds="1,0,52,20"
+                                            AbsoluteLayout.LayoutFlags="PositionProportional"
+                                            IsVisible="{Binding EsNuevo}"
+                                            BackgroundColor="#DC2626" StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 10">
+                                        <Label Text="Nuevo" TextColor="White" FontSize="11"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                </AbsoluteLayout>
+
+                                <Label Grid.Row="1" Text="{Binding Titulo}"
+                                       FontAttributes="Bold" FontSize="15"
+                                       HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                                <Label Grid.Row="2" Text="{Binding Autor}"
+                                       FontSize="12" TextColor="#475569"
+                                       HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                                <HorizontalStackLayout Grid.Row="3" Spacing="6" HorizontalOptions="Center">
+                                    <Label Text="{Binding Categoria}" FontSize="11" TextColor="#2563EB" />
+                                    <Label Text="•" FontSize="11" TextColor="#94A3B8" />
+                                    <Label Text="{Binding EstadoTexto}" FontSize="11"
+                                           FontAttributes="Bold" TextColor="{Binding EstadoColor}" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BibliotecaApp.Views.PrestamosPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:BibliotecaApp.Models"
+    Title="Préstamos">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="12" RowSpacing="12">
+
+        <Border Grid.Row="0" BackgroundColor="White" Padding="16"
+                StrokeThickness="0" StrokeShape="RoundRectangle 14">
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                  ColumnSpacing="12" RowSpacing="10">
+
+                <Label Grid.ColumnSpan="2" Text="📋 Registrar préstamo"
+                       FontSize="18" FontAttributes="Bold" TextColor="#1E3A8A" />
+
+                <Label Grid.Row="1" Text="Libro:" FontAttributes="Bold" VerticalOptions="Center" />
+                <Picker Grid.Row="1" Grid.Column="1" x:Name="LibroPicker"
+                        Title="Libros disponibles" />
+
+                <Label Grid.Row="2" Text="Usuario:" FontAttributes="Bold" VerticalOptions="Center" />
+                <Picker Grid.Row="2" Grid.Column="1" x:Name="UsuarioPicker"
+                        Title="Selecciona un usuario" />
+
+                <Label Grid.Row="3" Grid.ColumnSpan="2" x:Name="MensajeLabel"
+                       TextColor="#DC2626" IsVisible="False" />
+
+                <Button Grid.Row="4" Grid.ColumnSpan="2" Text="Registrar préstamo"
+                        BackgroundColor="#2563EB" TextColor="White" FontAttributes="Bold"
+                        CornerRadius="10" Clicked="OnRegistrarClicked" />
+            </Grid>
+        </Border>
+
+        <HorizontalStackLayout Grid.Row="1" Spacing="10" HorizontalOptions="Center">
+            <Button x:Name="ActivosButton" Text="Activos" CornerRadius="18"
+                    Padding="18,4" Clicked="OnActivosClicked" />
+            <Button x:Name="HistorialButton" Text="Historial" CornerRadius="18"
+                    Padding="18,4" Clicked="OnHistorialClicked" />
+        </HorizontalStackLayout>
+
+        <CollectionView Grid.Row="2" x:Name="PrestamosView" SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.EmptyView>
+                <Label Text="No hay préstamos para mostrar." HorizontalOptions="Center"
+                       Margin="0,30" TextColor="#64748B" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:PrestamoDetalle">
+                    <Border BackgroundColor="White" Padding="12"
+                            StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="{Binding Titulo}" FontAttributes="Bold" FontSize="15" />
+                                <Label Text="{Binding Usuario, StringFormat='Usuario: {0}'}"
+                                       FontSize="13" TextColor="#475569" />
+                                <Label Text="{Binding FechasTexto}" FontSize="12" TextColor="#64748B" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                                <Border BackgroundColor="{Binding EstadoColor}" Padding="10,4"
+                                        StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                                    <Label Text="{Binding EstadoTexto}" TextColor="White"
+                                           FontSize="11" FontAttributes="Bold"
+                                           HorizontalOptions="Center" />
+                                </Border>
+                                <Button Text="Devolver" IsVisible="{Binding Activo}"
+                                        BackgroundColor="#16A34A" TextColor="White"
+                                        FontSize="13" CornerRadius="8" Padding="10,2"
+                                        Clicked="OnDevolverClicked" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

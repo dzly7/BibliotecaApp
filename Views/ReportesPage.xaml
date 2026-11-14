@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BibliotecaApp.Views.ReportesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:BibliotecaApp.Models"
+    Title="Reportes">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="14" Spacing="14">
+
+            <Border BackgroundColor="White" Padding="14"
+                    StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label x:Name="UsuarioLabel" FontSize="17" FontAttributes="Bold" />
+                        <Label x:Name="RolLabel" FontSize="13" TextColor="#64748B" />
+                    </VerticalStackLayout>
+                    <Button Grid.Column="1" Text="Cerrar sesión"
+                            BackgroundColor="#DC2626" TextColor="White"
+                            CornerRadius="10" Clicked="OnCerrarSesionClicked" />
+                </Grid>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto"
+                  ColumnSpacing="10" RowSpacing="10">
+                <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#2563EB" Padding="12"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout>
+                        <Label x:Name="TotalLibrosLabel" Text="0" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Libros" FontSize="12" TextColor="#DBEAFE" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" BackgroundColor="#16A34A" Padding="12"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout>
+                        <Label x:Name="DisponiblesLabel" Text="0" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Disponibles" FontSize="12" TextColor="#DCFCE7" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2" BackgroundColor="#DC2626" Padding="12"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout>
+                        <Label x:Name="PrestadosLabel" Text="0" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Prestados" FontSize="12" TextColor="#FEE2E2" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="0" BackgroundColor="#7C3AED" Padding="12"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout>
+                        <Label x:Name="UsuariosLabel" Text="0" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Usuarios" FontSize="12" TextColor="#EDE9FE" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1" BackgroundColor="#F59E0B" Padding="12"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout>
+                        <Label x:Name="ActivosLabel" Text="0" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Préstamos activos" FontSize="12" TextColor="#FEF3C7" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2" BackgroundColor="#0F766E" Padding="12"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout>
+                        <Label x:Name="HistoricosLabel" Text="0" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Préstamos totales" FontSize="12" TextColor="#CCFBF1" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <Border BackgroundColor="White" Padding="14"
+                    StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Libros por categoría" FontSize="16" FontAttributes="Bold" />
+                    <VerticalStackLayout x:Name="CategoriasLayout" Spacing="8">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:ConteoCategoria">
+                                <Grid ColumnDefinitions="110,*,36" ColumnSpacing="8">
+                                    <Label Text="{Binding Categoria}" FontSize="13" VerticalOptions="Center" />
+                                    <ProgressBar Grid.Column="1" Progress="{Binding Porcentaje}"
+                                                 ProgressColor="#2563EB" VerticalOptions="Center" />
+                                    <Label Grid.Column="2" Text="{Binding Total}" FontSize="13"
+                                           FontAttributes="Bold" HorizontalTextAlignment="End"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="White" Padding="14"
+                    StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Almacenamiento" FontSize="16" FontAttributes="Bold" />
+                    <Label x:Name="RutaBdLabel" FontSize="12" TextColor="#475569" />
+                    <Button Text="Exportar catálogo a JSON"
+                            BackgroundColor="#1E40AF" TextColor="White"
+                            CornerRadius="10" Clicked="OnExportarClicked" />
+                    <Label x:Name="ExportacionLabel" FontSize="12" TextColor="#16A34A" IsVisible="False" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

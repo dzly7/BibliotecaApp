@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BibliotecaApp.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Iniciar sesión">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#1E3A8A" Offset="0" />
+            <GradientStop Color="#3B82F6" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,50,30,30"
+                             Spacing="16"
+                             VerticalOptions="Center"
+                             MaximumWidthRequest="420">
+
+            <Label Text="📖" FontSize="72" HorizontalOptions="Center" />
+            <Label Text="BibliotecaApp"
+                   FontSize="32" FontAttributes="Bold"
+                   TextColor="White" HorizontalOptions="Center" />
+            <Label Text="Sistema de Biblioteca"
+                   FontSize="15" TextColor="#DBEAFE"
+                   HorizontalOptions="Center" Margin="0,0,0,20" />
+
+            <Border BackgroundColor="White" StrokeThickness="0" Padding="12,2"
+                    StrokeShape="RoundRectangle 12">
+                <Entry x:Name="UsuarioEntry" Placeholder="👤  Usuario o correo"
+                       Keyboard="Email" ReturnType="Next" />
+            </Border>
+
+            <Border BackgroundColor="White" StrokeThickness="0" Padding="12,2"
+                    StrokeShape="RoundRectangle 12">
+                <Entry x:Name="ContrasenaEntry" Placeholder="🔒  Contraseña"
+                       IsPassword="True" ReturnType="Go"
+                       Completed="OnIniciarSesionClicked" />
+            </Border>
+
+            <HorizontalStackLayout Spacing="6">
+                <CheckBox x:Name="RecordarCheck" Color="White" />
+                <Label Text="Mantener sesión iniciada" TextColor="White"
+                       VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Label x:Name="ErrorLabel" TextColor="#FECACA" FontSize="14"
+                   IsVisible="False" HorizontalOptions="Center" />
+
+            <ActivityIndicator x:Name="CargandoIndicator" Color="White"
+                               IsRunning="False" IsVisible="False" />
+
+            <Button x:Name="IngresarButton"
+                    Text="Iniciar sesión"
+                    BackgroundColor="#1D4ED8" TextColor="White"
+                    FontAttributes="Bold" FontSize="17"
+                    CornerRadius="12" HeightRequest="50"
+                    Clicked="OnIniciarSesionClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
